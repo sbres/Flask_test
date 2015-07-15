@@ -27,6 +27,7 @@ application = Flask(__name__)
 @application.route('/')
 def hello_world():
     return 'Coucou ^.^'
+application.debug = True
 
 if __name__ == '__main__':
     http_server = HTTPServer(WSGIContainer(application))
