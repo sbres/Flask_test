@@ -2,7 +2,6 @@ import logging
 import logging.handlers
 import json
 import time
-import gevent
 #############   TORNADO IMPORTS   ############
 from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
