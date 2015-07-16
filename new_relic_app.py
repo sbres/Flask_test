@@ -1,15 +1,7 @@
 import logging
 import logging.handlers
 import json
-import time
-import gevent
-#############   TORNADO IMPORTS   ############
-from tornado.wsgi import WSGIContainer
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
-############# END TORNADO IMPORTS ############
-
-
+import newrelic.agent
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
@@ -27,13 +19,14 @@ application = Flask(__name__)
 
 @application.route('/')
 def hello_world():
-    #gevent.sleep(0.3)
     return 'Coucou ^.^'
-application.debug = True
 
 if __name__ == '__main__':
-    http_server = HTTPServer(WSGIContainer(application))
-    http_server.listen(8000)
-    IOLoop.instance().start()
+    #application = myapp.WSGIHandler()
+    application = newrelic.agent.WSGIApplicationWrapper(application)
 
 
+    application.debug = True
+    application.run(host='0.0.0.0', port=8000)
+    #application.run()
+    #application.run()
